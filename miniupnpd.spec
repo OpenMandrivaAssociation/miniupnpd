@@ -6,9 +6,8 @@ Release:	%mkrel %rel
 License:	GPL
 Group:		Applications/Internet
 Source:		%{name}-%{version}.tar.gz
-Buildroot:	/tmp/%{name}-%{version}-root
-Prefix:		/usr
-BuildPrereq:	iptables-devel iptables-iptc-devel
+BuildRoot:	%{_tmppath}/%{name}-%{version}
+BuildRequires:	iptables-devel iptables-iptc-devel
 Requires:	iptables
 
 Source1:	miniupnpd.init.d.script
@@ -24,10 +23,12 @@ See http://www.upnp.org/ for more details on UPnP.
 %setup -q -n %{name}-%{version}
 %patch0 -p0
 
-%install
+%build
 PREFIX=%{buildroot} make -f Makefile.linux config.h
 sed '/#define ENABLE_LEASEFILE/ c\#define ENABLE_LEASEFILE' config.h > config.h.new
 mv -f config.h.new config.h
+
+%install
 PREFIX=%{buildroot} make -f Makefile.linux install
 rm -f %{buildroot}%{_sysconfdir}/init.d/miniupnpd
 rm -f %{buildroot}%{_sysconfdir}/miniupnpd/miniupnpd.conf~
@@ -45,7 +46,3 @@ rm -fr %{buildroot}
 %doc %{_mandir}/man*/*
 %config(noreplace) %{_sysconfdir}/miniupnpd/*
 %doc README Changelog.txt
-
-%changelog
-* Mon Nov 22 2010 Ostroukhov Zamir <zamir@mandriva.com> - 1.4.20100511
-   - Fixed makefile for mandriva 2010.1
