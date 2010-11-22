@@ -24,7 +24,7 @@ See http://www.upnp.org/ for more details on UPnP.
 %patch0 -p0
 
 %build
-PREFIX=%{buildroot} make -f Makefile.linux config.h
+%make -f Makefile.linux config.h
 sed '/#define ENABLE_LEASEFILE/ c\#define ENABLE_LEASEFILE' config.h > config.h.new
 mv -f config.h.new config.h
 
