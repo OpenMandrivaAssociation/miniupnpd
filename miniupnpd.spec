@@ -4,7 +4,7 @@ Name:		miniupnpd
 Version:	1.4.20100511
 Release:	%mkrel %rel
 License:	GPL
-Group:		Applications/Internet
+Group:		System/Servers
 Source:		%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 BuildRequires:	iptables-devel iptables-iptc-devel
