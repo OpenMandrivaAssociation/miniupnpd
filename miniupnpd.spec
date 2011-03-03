@@ -1,17 +1,17 @@
 %define rel 0
 Summary:	The UPNP & NAT-PMP implementation
 Name:		miniupnpd
-Version:	1.4.20100511
+Version:	1.5.20110302
 Release:	%mkrel %rel
 License:	GPL
 Group:		System/Servers
-Source:		%{name}-%{version}.tar.gz
+URL:		http://miniupnp.free.fr
+Source:		http://miniupnp.free.fr/files/download.php?file=/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 BuildRequires:	iptables-devel iptables-iptc-devel
 Requires:	iptables
 
 Source1:	miniupnpd.init.d.script
-Patch0:		Makefile.linux.patch
 
 %description
 The miniUPnP daemon is an UPnP IGD (internet gateway device)
@@ -21,12 +21,9 @@ See http://www.upnp.org/ for more details on UPnP.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p0
 
 %build
 %make -f Makefile.linux config.h
-sed '/#define ENABLE_LEASEFILE/ c\#define ENABLE_LEASEFILE' config.h > config.h.new
-mv -f config.h.new config.h
 
 %install
 PREFIX=%{buildroot} make -f Makefile.linux install
