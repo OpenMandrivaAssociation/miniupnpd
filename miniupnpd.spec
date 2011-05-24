@@ -1,14 +1,13 @@
-%define rel 0
 Summary:	The UPNP & NAT-PMP implementation
 Name:		miniupnpd
-Version:	1.5.20110302
-Release:	%mkrel %rel
+Version:	1.5.20110520
+Release:	1
 License:	GPL
 Group:		System/Servers
 URL:		http://miniupnp.free.fr
 Source:		http://miniupnp.free.fr/files/download.php?file=/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}
-BuildRequires:	iptables-devel iptables-iptc-devel
+BuildRequires:	iptables-ip4tc-devel iptables-devel
 Requires:	iptables
 
 Source1:	miniupnpd.init.d.script
@@ -23,10 +22,10 @@ See http://www.upnp.org/ for more details on UPnP.
 %setup -q -n %{name}-%{version}
 
 %build
-%make -f Makefile.linux config.h
+%make -f Makefile.linux config.h CFLAGS="%optflags -DIPTABLES_143"
 
 %install
-PREFIX=%{buildroot} make -f Makefile.linux install
+PREFIX=%{buildroot} make -f Makefile.linux install CFLAGS="%optflags -DIPTABLES_143" LIBS="/%{_lib}/libip4tc.so"
 rm -f %{buildroot}%{_sysconfdir}/init.d/miniupnpd
 rm -f %{buildroot}%{_sysconfdir}/miniupnpd/miniupnpd.conf~
 install -D -m 755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
