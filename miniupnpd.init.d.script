@@ -1,0 +1,56 @@
+#! /bin/sh
+#
+# Startup script for the miniupnp daemon
+#
+# chkconfig: 2345 86 14
+# description: The miniUPnP daemon is an UPnP IGD
+# processname: miniupnpd
+# config: /etc/miniupnpd/miniupnpd.conf
+
+### BEGIN INIT INFO
+# Provides: miniupnpd upnp
+# Required-Start: iptables
+# Default-Start: 2 3 4 5
+# Short-Description: The UPNP & NAT-PMP implementation
+# Description: The miniUPnP daemon is an UPnP IGD (internet gateway device)
+# 	       which provide NAT traversal services to any UPnP enabled client on
+# 	       the network.
+### END INIT INFO
+
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# See how we were called.
+case "$1" in
+  start)
+	# Start daemons.
+	echo -n "Starting miniupnpd: "
+	daemon miniupnpd -f /etc/miniupnpd/miniupnpd.conf
+	echo
+	touch /var/lock/subsys/miniupnpd
+	;;
+
+  stop)
+	# Stop daemons.
+	echo -n "Shutting down miniupnpd: "
+	killproc miniupnpd
+	echo
+	rm -f /var/lock/subsys/miniupnpd
+	;;
+
+  reload|restart)
+	$0 stop
+	$0 start
+	;;
+
+  status)
+	status miniupnpd
+	;;
+
+  *)
+        echo "Usage: $0 {start|stop|restart|reload|status}"
+        exit 1
+esac
+
+exit 0
