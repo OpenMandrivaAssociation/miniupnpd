@@ -1,0 +1,14 @@
+[Unit]
+Description=The miniUPnP daemon is an UPnP IGD
+Requires=rpcbind.service iptables.service
+After=syslog.target network.target rpcbind.service iptables.service
+
+[Service]
+Type=forking
+RemainAfterExit=yes
+EnvironmentFile=/etc/sysconfig/network
+#EnvironmentFile=/etc/miniupnpd/miniupnpd.conf
+ExecStart=/usr/sbin/miniupnpd -f /etc/miniupnpd/miniupnpd.conf
+
+[Install]
+WantedBy=multi-user.target

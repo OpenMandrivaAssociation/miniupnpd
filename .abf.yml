@@ -1,3 +1,5 @@
-sources:
-  "miniupnpd-1.5.20110520.tar.gz": 7d4009daa5dd977be6d6c88fa9510a228978b7a6
+removed_sources:
+  miniupnpd-1.5.20110520.tar.gz: 7d4009daa5dd977be6d6c88fa9510a228978b7a6
   miniupnpd-1.7.20121005.tar.gz: 4579c4711a8455bf455f3757ac9ce0dc40088901
+sources:
+  miniupnpd-1.8.20140523.tar.gz: 1f29d76df57fcf4046c7cb9c7312d7fbc3f28e26

@@ -1,16 +1,17 @@
 Summary:	The UPNP & NAT-PMP implementation
 Name:		miniupnpd
-Version:	1.7.20121005
+Version:	1.8.20140523
 Release:	1
 License:	GPLv2
 Group:		System/Servers
 URL:		http://miniupnp.free.fr
 Source0:	http://miniupnp.free.fr/files/download.php?file=/%{name}-%{version}.tar.gz
-BuildRequires:	iptables-ip4tc-devel iptables-devel
+BuildRequires:	iptables-ip4tc-devel
+BuildRequires:	iptables-devel
+BuildRequires:	pkgconfig(libiptc)
 BuildRequires:	pkgconfig(libnetfilter_conntrack)
 Requires:	iptables
-
-Source1:	miniupnpd.init.d.script
+Source1:	miniupnpd.service
 
 %description
 The miniUPnP daemon is an UPnP IGD (internet gateway device)
@@ -19,7 +20,7 @@ the network.
 See http://www.upnp.org/ for more details on UPnP.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 
 %build
     mv Makefile.linux Makefile
@@ -42,19 +43,17 @@ See http://www.upnp.org/ for more details on UPnP.
 
 %make CC=gcc
 
-
 %install
-
 mkdir -p %{buildroot}%{_mandir}/man8/
 
 make install  PREFIX="%{buildroot}" STRIP="true"
 rm -f %{buildroot}%{_sysconfdir}/init.d/miniupnpd
 rm -f %{buildroot}%{_sysconfdir}/miniupnpd/miniupnpd.conf~
-install -D -m 755 %{SOURCE1} %{buildroot}%{_initrddir}/%{name}
+install -D -m 755 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 
 %files
 %{_sbindir}/miniupnpd
-%{_initrddir}/miniupnpd
+%{_unitdir}/miniupnpd*
 %doc %{_mandir}/man*/*
 %config(noreplace) %{_sysconfdir}/miniupnpd/*
 %doc README Changelog.txt
