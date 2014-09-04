@@ -1,7 +1,7 @@
 Summary:	The UPNP & NAT-PMP implementation
 Name:		miniupnpd
 Version:	1.8.20140523
-Release:	1
+Release:	3
 License:	GPLv2
 Group:		System/Servers
 URL:		http://miniupnp.free.fr
@@ -50,6 +50,15 @@ make install  PREFIX="%{buildroot}" STRIP="true"
 rm -f %{buildroot}%{_sysconfdir}/init.d/miniupnpd
 rm -f %{buildroot}%{_sysconfdir}/miniupnpd/miniupnpd.conf~
 install -D -m 755 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
+
+%post
+%systemd_post %{name}.service
+
+%preun
+%systemd_preun %{name}.service
+
+%postun
+%systemd_postun_with_restart %{name}.service
 
 %files
 %{_sbindir}/miniupnpd
