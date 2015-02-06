@@ -1,7 +1,7 @@
 Summary:	The UPNP & NAT-PMP implementation
 Name:		miniupnpd
 Version:	1.8.20140523
-Release:	3
+Release:	4
 License:	GPLv2
 Group:		System/Servers
 URL:		http://miniupnp.free.fr
