@@ -4,7 +4,7 @@ Version:	1.8.20140523
 Release:	4
 License:	GPLv2
 Group:		System/Servers
-URL:		http://miniupnp.free.fr
+URL:		https://miniupnp.free.fr
 Source0:	http://miniupnp.free.fr/files/download.php?file=/%{name}-%{version}.tar.gz
 BuildRequires:	iptables-ip4tc-devel
 BuildRequires:	iptables-devel
