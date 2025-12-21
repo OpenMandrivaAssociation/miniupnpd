@@ -6,6 +6,7 @@ License:	GPLv2
 Group:		System/Servers
 URL:		https://miniupnp.free.fr
 Source0:	http://miniupnp.free.fr/files/download.php?file=/%{name}-%{version}.tar.gz
+BuildRequires:	make
 BuildRequires:	iptables-ip4tc-devel
 BuildRequires:	iptables-devel
 BuildRequires:	pkgconfig(libiptc)
